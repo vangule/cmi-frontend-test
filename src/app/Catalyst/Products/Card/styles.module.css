@@ -1,0 +1,40 @@
+.container {
+    margin: 8px 32px;
+    cursor: pointer;
+}
+
+.product_name {
+    color: #131414;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.product_desc{
+    color: #4F4733;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.product_price {
+    color: #5A112B;
+    font-size: 14px;
+}
+
+.image_holder {
+    position: relative;
+}
+
+.image_holder :hover{
+    opacity: 0.2;
+}
+
+.add_to_cart {
+    position: absolute;
+    left:40%;
+    top:50%; 
+    font-weight: 900;
+    color: #FFFFFF;
+    font-size: 18px;
+    /* display: none; */
+}

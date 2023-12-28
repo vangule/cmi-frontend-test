@@ -1,0 +1,13 @@
+.container {
+    margin: 8px 0;
+}
+
+.heading {
+    color: #000000;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.category_item {
+    list-style-type: none
+}
