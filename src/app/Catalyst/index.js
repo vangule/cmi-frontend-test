@@ -6,7 +6,11 @@ import Navbar from './Navbar'
 import styles from './styles.module.css';
 import Products from './Products';
 import useRequest from './hooks/useRequest';
+import { log } from 'react-modal/lib/helpers/ariaAppHider';
+import Pagination from './Pagination';
 
+
+const itemsPerPage = 6; 
 
 const Catalyst = () => {
   const [data, setData] = useState(null);
@@ -14,6 +18,11 @@ const Catalyst = () => {
   const [cartList, setCartList] = useState([]);
 
   const apiClient = useRequest({ baseUrl : 'https://api.sheety.co/af35b536915ec576818d468cf2a6505c/reactjsTest/products' });
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = (data?.products || [])?.slice(indexOfFirstItem, indexOfLastItem);
 
    useEffect(() => {
     const fetchData = async () => {
@@ -46,11 +55,14 @@ const Catalyst = () => {
    
    <Products 
       data={data} 
+      currentItems={currentItems}
       openCart={openCart} 
       setOpenCart={setOpenCart}
       cartList={cartList}
       setCartList={setCartList}
    />
+
+   <Pagination data={data?.products} currentPage={currentPage} setCurrentPage={setCurrentPage} currentItems={currentItems} />
    </>
 
   )
