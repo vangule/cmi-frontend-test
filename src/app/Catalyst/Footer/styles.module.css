@@ -1,0 +1,60 @@
+.container {
+    background: #1E1E1E;
+    padding: 48px 32px;
+    color: #FFFFFF;
+}
+
+.brand_name {
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: 900;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+}
+
+.highlight_name {
+    color: #BFBEBE;
+}
+
+.footer_bottom_section{
+    display: flex;
+    justify-content: space-between;
+    flex: 4;
+}
+
+.footer_left_section {
+    display: flex;
+    flex: 3;
+}
+
+.footer_right_section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.page_name {
+    text-transform: capitalize;
+    margin-bottom: 8px;
+}
+
+.protected_by{
+    margin-bottom: 8px;
+}
+
+.footer_left_sub_section_one {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.footer_left_sub_section_two {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    padding: 0 40px;
+}
+
+.payment_gateway{
+    margin-bottom: 16px;
+}

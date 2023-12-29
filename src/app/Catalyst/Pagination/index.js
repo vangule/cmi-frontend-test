@@ -3,7 +3,7 @@ import styles from './styles.module.css';
 
 const itemsPerPage = 6;
 
-const Pagination = ({ data = [], currentPage, currentItems = [], setCurrentPage }) => {
+const Pagination = ({ data = [], currentPage = 1, setCurrentPage = () => {} }) => {
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };

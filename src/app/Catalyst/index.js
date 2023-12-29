@@ -8,6 +8,7 @@ import Products from './Products';
 import useRequest from './hooks/useRequest';
 import { log } from 'react-modal/lib/helpers/ariaAppHider';
 import Pagination from './Pagination';
+import Footer from './Footer';
 
 
 const itemsPerPage = 6; 
@@ -54,15 +55,17 @@ const Catalyst = () => {
    </div>
    
    <Products 
-      data={data} 
+      data={data}
       currentItems={currentItems}
       openCart={openCart} 
-      setOpenCart={setOpenCart}
       cartList={cartList}
+      currentPage={currentPage}
+      setOpenCart={setOpenCart}
       setCartList={setCartList}
+      setCurrentPage={setCurrentPage}
    />
 
-   <Pagination data={data?.products} currentPage={currentPage} setCurrentPage={setCurrentPage} currentItems={currentItems} />
+   <Footer />
    </>
 
   )

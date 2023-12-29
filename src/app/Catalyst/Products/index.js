@@ -4,6 +4,7 @@ import Filters from './Filters';
 import Card from './Card';
 import Modal from 'react-modal';
 import Cart from './Cart';
+import Pagination from '../Pagination';
 
 const customStyles = {
   content: {
@@ -15,20 +16,29 @@ const customStyles = {
   },
 };
 
-const Products = ({ data = {}, currentItems,  openCart = false, setOpenCart = () => {}, cartList, setCartList = () => {} }) => {
+const Products = ({ data = {}, currentItems = [],  openCart = false, cartList = [], setOpenCart = () => {}, setCartList = () => {}, currentPage = 1, setCurrentPage = () => {} }) => {
   return (
     <div className={styles.product_section}>
         <Filters />
+
        <div className={styles.right_section}>
-        {
-          (currentItems || []).map((item)=> {
+        <div className={styles.card_container}>
+        {(currentItems || []).map((item)=> {
             return(
             <div key={item?.id}>
               <Card  item={item} setOpenCart={setOpenCart} cartList={cartList} setCartList={setCartList} />
               </div>)
-          })
-        }
+          })}
+        </div>
+
+        <Pagination
+          data={data?.products}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
        </div>
+
+    
        <Modal
         isOpen={openCart}
         onRequestClose={()=> setOpenCart(false)}
@@ -37,7 +47,8 @@ const Products = ({ data = {}, currentItems,  openCart = false, setOpenCart = ()
           <Cart cartList={cartList} setCartList={setCartList} setOpenCart={setOpenCart} />
         </Modal>
     </div>
+    
   )
 }
 
-export default Products
+export default Products;

@@ -1,4 +1,11 @@
-.container{
+.container {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    padding: 16px;
+}
+
+.sub_container {
     display: flex;
     justify-content: space-between;
 }
@@ -14,16 +21,17 @@
     }
 }
 
-.right_section{
+.right_section {
     display: flex;
     font-size: 16px;
     font-weight: 700;
     letter-spacing: 0em;
-    color: #FFFFFF;
+    color: #BFBEBE;
 }
 
 .right_section_item{
     margin: 0 8px;
+    text-transform: capitalize;
 }
 
 .right_section_cart_item{
