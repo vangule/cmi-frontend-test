@@ -16,26 +16,31 @@ const customStyles = {
   },
 };
 
-const Products = ({ data = {}, currentItems = [],  openCart = false, cartList = [], setOpenCart = () => {}, setCartList = () => {}, currentPage = 1, setCurrentPage = () => {} }) => {
+const Products = ({ data = {}, currentItems = [],  openCart = false, cartList = [], filterColor, filterMaterial,
+  setOpenCart = () => {}, setCartList = () => {}, currentPage = 1, setCurrentPage = () => {},
+  setFilterColor = () => {}, setFilterMaterial = () => {} }) => {
   return (
     <div className={styles.product_section}>
-        <Filters />
+        <Filters setFilterColor={setFilterColor} setFilterMaterial={setFilterMaterial} filterColor={filterColor} filterMaterial={filterMaterial} />
 
        <div className={styles.right_section}>
-        <div className={styles.card_container}>
-        {(currentItems || []).map((item)=> {
-            return(
-            <div key={item?.id}>
-              <Card  item={item} setOpenCart={setOpenCart} cartList={cartList} setCartList={setCartList} />
-              </div>)
-          })}
-        </div>
 
-        <Pagination
-          data={data?.products}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
+        {currentItems?.length < 1 && <div style={{ fontSize:'18px', fontWeight:'500'}}>Sorry! Product Unavailable</div>}
+            <div className={styles.card_container}>
+            {(currentItems || []).map((item)=> {
+                return(
+                <div key={item?.id}>
+                  <Card  item={item} setOpenCart={setOpenCart} cartList={cartList} setCartList={setCartList} />
+                  </div>)
+              })}
+            </div>
+
+            {currentItems?.length > 0 ? 
+            <Pagination
+              data={data?.products}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            /> : null}
        </div>
 
     

@@ -6,8 +6,6 @@ import Navbar from './Navbar'
 import styles from './styles.module.css';
 import Products from './Products';
 import useRequest from './hooks/useRequest';
-import { log } from 'react-modal/lib/helpers/ariaAppHider';
-import Pagination from './Pagination';
 import Footer from './Footer';
 
 
@@ -17,18 +15,34 @@ const Catalyst = () => {
   const [data, setData] = useState(null);
   const [openCart, setOpenCart] = useState(false);
   const [cartList, setCartList] = useState([]);
+  const [changeTextColor, setChangeTextColor] = useState(false);
+  const [filterColor, setFilterColor] = useState({ isCFilterApplied : false, colorId: '', name: '' });
+  const [filterMaterial, setFilterMaterial] = useState({ isMFilterApplied : false, materialId: '', name: '' });
 
-  const apiClient = useRequest({ baseUrl : 'https://api.sheety.co/af35b536915ec576818d468cf2a6505c/reactjsTest/products' });
+  const productApi = useRequest({ baseUrl : 'https://api.sheety.co/af35b536915ec576818d468cf2a6505c/reactjsTest/products' });
 
   const [currentPage, setCurrentPage] = useState(1);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = (data?.products || [])?.slice(indexOfFirstItem, indexOfLastItem);
+
+  const colorWiseFilter = data?.products.filter((it) => it.colorId === filterColor?.colorId);
+  const materialWiseFilter = data?.products.filter((it) => it.materialId === filterMaterial?.materialId);
+
+  let renderData = [];
+  if(filterColor?.isCFilterApplied){
+    renderData = colorWiseFilter;
+  }else if(filterMaterial?.isMFilterApplied){
+    renderData = materialWiseFilter;
+  }else{
+    renderData = data?.products;
+  }
+
+  const currentItems = (renderData || [])?.slice(indexOfFirstItem, indexOfLastItem);
 
    useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await apiClient.get('');
+        const response = await productApi.get('');
 
         if (!response || !response.data) {
           throw new Error('No data received');
@@ -43,10 +57,30 @@ const Catalyst = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      if (scrollPosition > 610) {
+        setChangeTextColor(true);
+      } else {
+        setChangeTextColor(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []); 
+
   return (
    <>
    <div className={styles.header_container}>
-    <Navbar setOpenCart={setOpenCart} cartItemsCount={cartList?.length} />
+    <Navbar
+      setOpenCart={setOpenCart}
+      cartItemsCount={cartList?.length}
+      changeTextColor={changeTextColor}
+    />
     <div className={styles.header}>
       <div className={styles.heading}>Letest Styles</div>
       <div className={styles.sub_heading}>At Yesterday’s Prices</div>
@@ -63,6 +97,10 @@ const Catalyst = () => {
       setOpenCart={setOpenCart}
       setCartList={setCartList}
       setCurrentPage={setCurrentPage}
+      filterColor={filterColor}
+      filterMaterial={filterMaterial}
+      setFilterColor={setFilterColor}
+      setFilterMaterial={setFilterMaterial}
    />
 
    <Footer />
